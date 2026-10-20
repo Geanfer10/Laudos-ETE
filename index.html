@@ -45,6 +45,8 @@ header.top .wrap{padding-block:18px 20px;display:flex;flex-wrap:wrap;gap:14px 28
 .camp label{opacity:.9}
 .camp select{font:inherit;font-weight:600;padding:6px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.12);color:var(--brand-ink)}
 .camp select option{color:#16241B;background:#fff}
+.camp .dl{color:var(--brand-ink);font-weight:600;text-decoration:none;padding:6px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.12)}
+.camp .dl:hover{background:rgba(255,255,255,.22)}
 .proto{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.18);padding:3px 8px;border-radius:999px}
 main.wrap{padding-block:22px 40px;display:grid;grid-template-columns:minmax(0,1fr);gap:30px}
 main.wrap>section{min-width:0}
@@ -173,6 +175,7 @@ body{margin:0}
       <label for="selCamp">Campanha de coleta</label>
       <select id="selCamp"></select>
       <span id="atualizado"></span>
+      <a class="dl" id="dlPlanilha" href="laudos.xlsx" download>Baixar planilha Excel</a>
     </div>
   </div>
 </header>
