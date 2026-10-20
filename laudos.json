@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-10-20 16:19:28",
+  "atualizado_em": "2026-10-20 17:00:01",
   "amostras": [
     {
       "proposta": "PC389/2026",
@@ -342,6 +342,40 @@
       "reprovados_laboratorio": "",
       "arquivo": "02_PROCESSADOS\\2026\\2026-09\\2026-09-30_AB_MONTANTE_4296-2026.pdf",
       "processado_em": "2026-10-20 14:48:36"
+    },
+    {
+      "proposta": "PC389/2026",
+      "coleta_amostras": "CA434/2026",
+      "data_publicacao": "17/09/2026 15:53",
+      "cliente": "GOIAS VERDE ALIMENTOS LTDA",
+      "cnpj": "24866741000118",
+      "contato": "Danilo .",
+      "telefone": "(61) 9959-4646",
+      "numero_amostra_bruto": "1081-1/2026.0 Conama 430",
+      "tipo_amostra": "Água residual",
+      "data_coleta": "25/08/2026 13:40",
+      "data_recebimento": "28/08/2026 10:56",
+      "chuva_coleta": "NÃO",
+      "coletor": "Contratante",
+      "condicoes_frasco": "CONFORME",
+      "ponto_coleta_bruto": "BOMBA DE CAPTAÇÃO DE EFLUENTES - EFLUENTE BRUTO",
+      "temp_amostra_recebimento": "10",
+      "plano_amostragem": "PC 389/26",
+      "temp_ambiente_local": "---",
+      "temp_amostra_local": "---",
+      "legislacao_desc": "Resolução Nº 430 - (Seção II): Resolução Nº 430 - (Seção II), de 13 de maio de 2011",
+      "chave_validacao": "f6136d7c8d5043028ae926545fdfde9d",
+      "numero_amostra": "1081-1/2026.0",
+      "descricao": "Conama 430",
+      "ponto_coleta": "Bomba De Captação De Efluentes - Efluente Bruto",
+      "ponto_cadastrado": false,
+      "relatorios": "1081/2026.0.A + 1081/2026.0",
+      "relatorio_base": "1081/2026.0",
+      "interpretacao": "",
+      "parecer_laboratorio": "Conforme",
+      "reprovados_laboratorio": "",
+      "arquivo": "02_PROCESSADOS\\2026\\2026-08\\2026-08-25_AR_BOMBA-DE-CAPTACAO-DE-EFLUENTES-EFLUENTE-BRUTO_1081-2026.pdf",
+      "processado_em": "2026-10-20 17:00:01"
     }
   ],
   "resultados": [
@@ -2153,6 +2187,33 @@
       "verificacao_robo": "Conforme",
       "chave_validacao": "26c03a970cb54efab5ba85cb5e1ef425",
       "numero_amostra": "4296-1/2026.0"
+    },
+    {
+      "grupo": "Efluentes",
+      "analise_original": "Demanda bioquímica de oxigênio (DBO5 dias a 20°C)",
+      "resultado_original": "879,00 mgO2/L",
+      "legislacao": "Resolução Nº 430 - (Seção II)",
+      "limite": "60% de remoção mgO2/L",
+      "lq": 2.0,
+      "ld": 0.6,
+      "incerteza": 0.94,
+      "metodo": "SMWW 5210B - 24ed.",
+      "data_analise": "28/08/2026 00:00",
+      "relatorio": "1081/2026.0.A",
+      "acreditado": "Sim",
+      "analise": "DBO5",
+      "sinal": "",
+      "valor": 879.0,
+      "unidade": "mg O2/L",
+      "resultado_texto": "",
+      "interpretado": true,
+      "tipo_limite": "nao_verificavel",
+      "limite_min": null,
+      "limite_max": null,
+      "status_laudo": "Conforme",
+      "verificacao_robo": "Não verificável",
+      "chave_validacao": "f6136d7c8d5043028ae926545fdfde9d",
+      "numero_amostra": "1081-1/2026.0"
     }
   ],
   "alertas": [
@@ -2275,6 +2336,16 @@
       "analise": "Cloro residual",
       "mensagem": "Laboratório aprovou, mas o resultado '< 0,1 mg Cl/L' não permite confirmar o limite 'até 0,01 mg Cl/L'.",
       "chave_validacao": "646404d0f8884d71b4e2c86ee93ee05c"
+    },
+    {
+      "numero_amostra": "1081-1/2026.0",
+      "ponto_coleta": "Bomba De Captação De Efluentes - Efluente Bruto",
+      "data_coleta": "25/08/2026 13:40",
+      "nivel": "Baixo",
+      "tipo": "Ponto de coleta novo",
+      "analise": "",
+      "mensagem": "'BOMBA DE CAPTAÇÃO DE EFLUENTES - EFLUENTE BRUTO' não está no dicionario.json. Cadastre para padronizar o nome.",
+      "chave_validacao": "f6136d7c8d5043028ae926545fdfde9d"
     }
   ],
   "log": [
@@ -2364,6 +2435,14 @@
       "situacao": "ERRO",
       "n_resultados": 0,
       "detalhe": "Não parece um laudo Aqualit (texto 'Relatório de Análises' não encontrado). Pode ser um PDF escaneado ou de outro laboratório. — movido para 03_ERROS"
+    },
+    {
+      "data_hora": "2026-10-20 17:00:01",
+      "arquivo_original": "1081-1-2026_0.pdf",
+      "situacao": "Processado",
+      "numero_amostra": "1081-1/2026.0",
+      "n_resultados": 1,
+      "detalhe": "02_PROCESSADOS\\2026\\2026-08\\2026-08-25_AR_BOMBA-DE-CAPTACAO-DE-EFLUENTES-EFLUENTE-BRUTO_1081-2026.pdf"
     }
   ]
 }
