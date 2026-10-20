@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-10-20 14:48:39",
+  "atualizado_em": "2026-10-20 16:19:28",
   "amostras": [
     {
       "proposta": "PC389/2026",
@@ -2357,6 +2357,13 @@
       "numero_amostra": "4296-1/2026.0",
       "n_resultados": 1,
       "detalhe": "02_PROCESSADOS\\2026\\2026-09\\2026-09-30_AB_MONTANTE_4296-2026.pdf"
+    },
+    {
+      "data_hora": "2026-10-20 16:19:28",
+      "arquivo_original": "19813-2026 - 1-0.pdf",
+      "situacao": "ERRO",
+      "n_resultados": 0,
+      "detalhe": "Não parece um laudo Aqualit (texto 'Relatório de Análises' não encontrado). Pode ser um PDF escaneado ou de outro laboratório. — movido para 03_ERROS"
     }
   ]
 }
