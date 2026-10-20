@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-10-20 14:39:06",
+  "atualizado_em": "2026-10-20 14:48:39",
   "amostras": [
     {
       "proposta": "PC389/2026",
@@ -33,8 +33,8 @@
       "interpretacao": "Resolução CONAMA nº 357, art. 15 de 17 de março de 2005. O(s) parâmetro(s) analisado(s): não satisfazem os limites permitidos: Demanda bioquímica de oxigênio (DBO5 dias a 20°C), Oxigênio Dissolvido",
       "parecer_laboratorio": "Não conforme",
       "reprovados_laboratorio": "Demanda bioquímica de oxigênio (DBO5 dias a 20°C), Oxigênio Dissolvido",
-      "arquivo": "02_PROCESSADOS/2026/2026-09/2026-09-30_AB_REPRESA-1_4218-2026.pdf",
-      "processado_em": "2026-10-20 14:39:02"
+      "arquivo": "02_PROCESSADOS\\2026\\2026-09\\2026-09-30_AB_REPRESA-1_4218-2026.pdf",
+      "processado_em": "2026-10-20 14:48:36"
     },
     {
       "proposta": "PC389/2026",
@@ -68,8 +68,8 @@
       "interpretacao": "Resolução CONAMA nº 357, art. 15 de 17 de março de 2005. O(s) parâmetro(s) analisado(s): não satisfazem os limites permitidos: Coliformes termotolerantes, Demanda bioquímica de oxigênio (DBO5 dias a 20°C), Fenóis, Oxigênio Dissolvido",
       "parecer_laboratorio": "Não conforme",
       "reprovados_laboratorio": "Coliformes termotolerantes, Demanda bioquímica de oxigênio (DBO5 dias a 20°C), Fenóis, Oxigênio Dissolvido",
-      "arquivo": "02_PROCESSADOS/2026/2026-09/2026-09-30_AB_JUSANTE_4219-2026.pdf",
-      "processado_em": "2026-10-20 14:39:02"
+      "arquivo": "02_PROCESSADOS\\2026\\2026-09\\2026-09-30_AB_JUSANTE_4219-2026.pdf",
+      "processado_em": "2026-10-20 14:48:36"
     },
     {
       "proposta": "PC389/2026",
@@ -102,8 +102,8 @@
       "interpretacao": "Resolução Nº 430 - (Seção II), de 13 de maio de 2011, pode-se afirmar que o(s) parâmetro(s) analisado(s): satisfazem os limites permitidos.",
       "parecer_laboratorio": "Conforme",
       "reprovados_laboratorio": "",
-      "arquivo": "02_PROCESSADOS/2026/2026-09/2026-09-30_AR_LAGOA-07_4220-2026.pdf",
-      "processado_em": "2026-10-20 14:39:02"
+      "arquivo": "02_PROCESSADOS\\2026\\2026-09\\2026-09-30_AR_LAGOA-07_4220-2026.pdf",
+      "processado_em": "2026-10-20 14:48:36"
     },
     {
       "proposta": "PC389/2026",
@@ -136,8 +136,8 @@
       "interpretacao": "Resolução Nº 430 - (Seção II), de 13 de maio de 2011, pode-se afirmar que o(s) parâmetro(s) analisado(s): satisfazem os limites permitidos.",
       "parecer_laboratorio": "Conforme",
       "reprovados_laboratorio": "",
-      "arquivo": "02_PROCESSADOS/2026/2026-09/2026-09-30_AR_LAGOA-01_4221-2026.pdf",
-      "processado_em": "2026-10-20 14:39:02"
+      "arquivo": "02_PROCESSADOS\\2026\\2026-09\\2026-09-30_AR_LAGOA-01_4221-2026.pdf",
+      "processado_em": "2026-10-20 14:48:36"
     },
     {
       "proposta": "PC811/2026",
@@ -170,8 +170,8 @@
       "interpretacao": "Resolução CONAMA nº 357, art. 15 de 17 de março de 2005. O(s) parâmetro(s) analisado(s): não satisfazem os limites permitidos: Ferro dissolvido",
       "parecer_laboratorio": "Não conforme",
       "reprovados_laboratorio": "Ferro dissolvido",
-      "arquivo": "02_PROCESSADOS/2026/2026-09/2026-09-30_AB_SAIDA-DA-MINA_4291-2026.pdf",
-      "processado_em": "2026-10-20 14:39:02"
+      "arquivo": "02_PROCESSADOS\\2026\\2026-09\\2026-09-30_AB_SAIDA-DA-MINA_4291-2026.pdf",
+      "processado_em": "2026-10-20 14:48:36"
     },
     {
       "proposta": "PC811/2026",
@@ -204,8 +204,8 @@
       "interpretacao": "Resolução CONAMA nº 357, art. 15 de 17 de março de 2005. O(s) parâmetro(s) analisado(s): satisfazem os limites permitidos.",
       "parecer_laboratorio": "Conforme",
       "reprovados_laboratorio": "",
-      "arquivo": "02_PROCESSADOS/2026/2026-09/2026-09-30_AB_REPRESA-1_4292-2026.pdf",
-      "processado_em": "2026-10-20 14:39:02"
+      "arquivo": "02_PROCESSADOS\\2026\\2026-09\\2026-09-30_AB_REPRESA-1_4292-2026.pdf",
+      "processado_em": "2026-10-20 14:48:36"
     },
     {
       "proposta": "PC811/2026",
@@ -238,8 +238,8 @@
       "interpretacao": "Resolução CONAMA nº 357, art. 15 de 17 de março de 2005. O(s) parâmetro(s) analisado(s): satisfazem os limites permitidos.",
       "parecer_laboratorio": "Conforme",
       "reprovados_laboratorio": "",
-      "arquivo": "02_PROCESSADOS/2026/2026-09/2026-09-30_AB_GOIABAL_4293-2026.pdf",
-      "processado_em": "2026-10-20 14:39:02"
+      "arquivo": "02_PROCESSADOS\\2026\\2026-09\\2026-09-30_AB_GOIABAL_4293-2026.pdf",
+      "processado_em": "2026-10-20 14:48:36"
     },
     {
       "proposta": "PC811/2026",
@@ -272,8 +272,8 @@
       "interpretacao": "Resolução CONAMA nº 357, art. 15 de 17 de março de 2005. O(s) parâmetro(s) analisado(s): satisfazem os limites permitidos.",
       "parecer_laboratorio": "Conforme",
       "reprovados_laboratorio": "",
-      "arquivo": "02_PROCESSADOS/2026/2026-09/2026-09-30_AB_JUSANTE_4294-2026.pdf",
-      "processado_em": "2026-10-20 14:39:02"
+      "arquivo": "02_PROCESSADOS\\2026\\2026-09\\2026-09-30_AB_JUSANTE_4294-2026.pdf",
+      "processado_em": "2026-10-20 14:48:36"
     },
     {
       "proposta": "PC811/2026",
@@ -306,8 +306,8 @@
       "interpretacao": "Resolução CONAMA nº 357, art. 15 de 17 de março de 2005. O(s) parâmetro(s) analisado(s): satisfazem os limites permitidos.",
       "parecer_laboratorio": "Conforme",
       "reprovados_laboratorio": "",
-      "arquivo": "02_PROCESSADOS/2026/2026-09/2026-09-30_AB_CAPTACAO_4295-2026.pdf",
-      "processado_em": "2026-10-20 14:39:02"
+      "arquivo": "02_PROCESSADOS\\2026\\2026-09\\2026-09-30_AB_CAPTACAO_4295-2026.pdf",
+      "processado_em": "2026-10-20 14:48:36"
     },
     {
       "proposta": "PC811/2026",
@@ -340,8 +340,8 @@
       "interpretacao": "Resolução CONAMA nº 357, art. 15 de 17 de março de 2005. O(s) parâmetro(s) analisado(s): satisfazem os limites permitidos.",
       "parecer_laboratorio": "Conforme",
       "reprovados_laboratorio": "",
-      "arquivo": "02_PROCESSADOS/2026/2026-09/2026-09-30_AB_MONTANTE_4296-2026.pdf",
-      "processado_em": "2026-10-20 14:39:02"
+      "arquivo": "02_PROCESSADOS\\2026\\2026-09\\2026-09-30_AB_MONTANTE_4296-2026.pdf",
+      "processado_em": "2026-10-20 14:48:36"
     }
   ],
   "resultados": [
@@ -2279,84 +2279,84 @@
   ],
   "log": [
     {
-      "data_hora": "2026-10-20 14:39:02",
+      "data_hora": "2026-10-20 14:48:36",
       "arquivo_original": "4218-1-2026_0.pdf",
       "situacao": "Processado",
       "numero_amostra": "4218-1/2026.0",
       "n_resultados": 10,
-      "detalhe": "02_PROCESSADOS/2026/2026-09/2026-09-30_AB_REPRESA-1_4218-2026.pdf"
+      "detalhe": "02_PROCESSADOS\\2026\\2026-09\\2026-09-30_AB_REPRESA-1_4218-2026.pdf"
     },
     {
-      "data_hora": "2026-10-20 14:39:02",
+      "data_hora": "2026-10-20 14:48:36",
       "arquivo_original": "4219-1-2026_0.pdf",
       "situacao": "Processado",
       "numero_amostra": "4219-1/2026.0",
       "n_resultados": 10,
-      "detalhe": "02_PROCESSADOS/2026/2026-09/2026-09-30_AB_JUSANTE_4219-2026.pdf"
+      "detalhe": "02_PROCESSADOS\\2026\\2026-09\\2026-09-30_AB_JUSANTE_4219-2026.pdf"
     },
     {
-      "data_hora": "2026-10-20 14:39:02",
+      "data_hora": "2026-10-20 14:48:36",
       "arquivo_original": "4220-1-2026_0.pdf",
       "situacao": "Processado",
       "numero_amostra": "4220-1/2026.0",
       "n_resultados": 14,
-      "detalhe": "02_PROCESSADOS/2026/2026-09/2026-09-30_AR_LAGOA-07_4220-2026.pdf"
+      "detalhe": "02_PROCESSADOS\\2026\\2026-09\\2026-09-30_AR_LAGOA-07_4220-2026.pdf"
     },
     {
-      "data_hora": "2026-10-20 14:39:02",
+      "data_hora": "2026-10-20 14:48:36",
       "arquivo_original": "4221-1-2026_0.pdf",
       "situacao": "Processado",
       "numero_amostra": "4221-1/2026.0",
       "n_resultados": 14,
-      "detalhe": "02_PROCESSADOS/2026/2026-09/2026-09-30_AR_LAGOA-01_4221-2026.pdf"
+      "detalhe": "02_PROCESSADOS\\2026\\2026-09\\2026-09-30_AR_LAGOA-01_4221-2026.pdf"
     },
     {
-      "data_hora": "2026-10-20 14:39:02",
+      "data_hora": "2026-10-20 14:48:36",
       "arquivo_original": "4291-1-2026_0.pdf",
       "situacao": "Processado",
       "numero_amostra": "4291-1/2026.0",
       "n_resultados": 4,
-      "detalhe": "02_PROCESSADOS/2026/2026-09/2026-09-30_AB_SAIDA-DA-MINA_4291-2026.pdf"
+      "detalhe": "02_PROCESSADOS\\2026\\2026-09\\2026-09-30_AB_SAIDA-DA-MINA_4291-2026.pdf"
     },
     {
-      "data_hora": "2026-10-20 14:39:02",
+      "data_hora": "2026-10-20 14:48:36",
       "arquivo_original": "4292-1-2026_0.pdf",
       "situacao": "Processado",
       "numero_amostra": "4292-1/2026.0",
       "n_resultados": 4,
-      "detalhe": "02_PROCESSADOS/2026/2026-09/2026-09-30_AB_REPRESA-1_4292-2026.pdf"
+      "detalhe": "02_PROCESSADOS\\2026\\2026-09\\2026-09-30_AB_REPRESA-1_4292-2026.pdf"
     },
     {
-      "data_hora": "2026-10-20 14:39:02",
+      "data_hora": "2026-10-20 14:48:36",
       "arquivo_original": "4293-1-2026_0.pdf",
       "situacao": "Processado",
       "numero_amostra": "4293-1/2026.0",
       "n_resultados": 4,
-      "detalhe": "02_PROCESSADOS/2026/2026-09/2026-09-30_AB_GOIABAL_4293-2026.pdf"
+      "detalhe": "02_PROCESSADOS\\2026\\2026-09\\2026-09-30_AB_GOIABAL_4293-2026.pdf"
     },
     {
-      "data_hora": "2026-10-20 14:39:02",
+      "data_hora": "2026-10-20 14:48:36",
       "arquivo_original": "4294-1-2026_0.pdf",
       "situacao": "Processado",
       "numero_amostra": "4294-1/2026.0",
       "n_resultados": 4,
-      "detalhe": "02_PROCESSADOS/2026/2026-09/2026-09-30_AB_JUSANTE_4294-2026.pdf"
+      "detalhe": "02_PROCESSADOS\\2026\\2026-09\\2026-09-30_AB_JUSANTE_4294-2026.pdf"
     },
     {
-      "data_hora": "2026-10-20 14:39:02",
+      "data_hora": "2026-10-20 14:48:36",
       "arquivo_original": "4295-1-2026_0.pdf",
       "situacao": "Processado",
       "numero_amostra": "4295-1/2026.0",
       "n_resultados": 2,
-      "detalhe": "02_PROCESSADOS/2026/2026-09/2026-09-30_AB_CAPTACAO_4295-2026.pdf"
+      "detalhe": "02_PROCESSADOS\\2026\\2026-09\\2026-09-30_AB_CAPTACAO_4295-2026.pdf"
     },
     {
-      "data_hora": "2026-10-20 14:39:02",
+      "data_hora": "2026-10-20 14:48:36",
       "arquivo_original": "4296-1-2026_0.pdf",
       "situacao": "Processado",
       "numero_amostra": "4296-1/2026.0",
       "n_resultados": 1,
-      "detalhe": "02_PROCESSADOS/2026/2026-09/2026-09-30_AB_MONTANTE_4296-2026.pdf"
+      "detalhe": "02_PROCESSADOS\\2026\\2026-09\\2026-09-30_AB_MONTANTE_4296-2026.pdf"
     }
   ]
 }
