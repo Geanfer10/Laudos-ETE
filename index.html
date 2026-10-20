@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Laudos ETE · Goiás Verde</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: faixa de cabeçalho verde da marca → indicadores → cards por ponto → gráficos → tabela → alertas, coluna única de até 1280px */
+:root{
+  --bg:#F5F8F5; --surface:#FFFFFF; --surface-2:#EEF3EF; --line:#D9E3DB;
+  --fg:#16241B; --muted:#5B6B60;
+  --brand:#1E7B45; --brand-ink:#FFFFFF; --brand-soft:#E3F1E8;
+  --ok:#2E8B57; --ok-bg:#DDF2E4; --bad:#C8372D; --bad-bg:#FBE1DE;
+  --warn:#B7791F; --warn-bg:#FCEFD3; --na:#6B7A70; --na-bg:#E8EDE9;
+  --font-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --font-body:"Barlow","Segoe UI",Roboto,Arial,sans-serif;
+  --font-num:"JetBrains Mono",Consolas,"Courier New",monospace;
+  --radius:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F1712; --surface:#16211A; --surface-2:#1C2A21; --line:#2A3B30;
+  --fg:#E4EEE7; --muted:#9AAEA1;
+  --brand:#1E7B45; --brand-ink:#FFFFFF; --brand-soft:#1B3325;
+  --ok:#5CC98A; --ok-bg:#163826; --bad:#F07368; --bad-bg:#3E1C19;
+  --warn:#E7B04F; --warn-bg:#3B2E14; --na:#9AAEA1; --na-bg:#233028;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1712; --surface:#16211A; --surface-2:#1C2A21; --line:#2A3B30;
+  --fg:#E4EEE7; --muted:#9AAEA1;
+  --brand:#1E7B45; --brand-ink:#FFFFFF; --brand-soft:#1B3325;
+  --ok:#5CC98A; --ok-bg:#163826; --bad:#F07368; --bad-bg:#3E1C19;
+  --warn:#E7B04F; --warn-bg:#3B2E14; --na:#9AAEA1; --na-bg:#233028;
+  color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:15px;line-height:1.45}
+.num{font-family:var(--font-num);font-variant-numeric:tabular-nums}
+.wrap{max-width:1280px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{background:var(--brand);color:var(--brand-ink)}
+header.top .wrap{padding-block:18px 20px;display:flex;flex-wrap:wrap;gap:14px 28px;align-items:flex-end;justify-content:space-between}
+.brand small{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.85}
+.brand h1{margin:2px 0 0;font-family:var(--font-display);font-size:34px;line-height:1;letter-spacing:.01em;text-wrap:balance}
+.camp{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;font-size:13px}
+.camp label{opacity:.9}
+.camp select{font:inherit;font-weight:600;padding:6px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.12);color:var(--brand-ink)}
+.camp select option{color:#16241B;background:#fff}
+.proto{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.18);padding:3px 8px;border-radius:999px}
+main.wrap{padding-block:22px 40px;display:grid;grid-template-columns:minmax(0,1fr);gap:30px}
+main.wrap>section{min-width:0}
+section>h2{margin:0 0 4px;font-family:var(--font-display);font-size:22px;letter-spacing:.02em;text-transform:uppercase;color:var(--fg)}
+section>p.sub{margin:0 0 14px;color:var(--muted);font-size:14px;max-width:70ch}
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;display:grid;gap:2px}
+.kpi .lbl{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.kpi .val{font-family:var(--font-num);font-size:30px;font-weight:600;line-height:1.15}
+.kpi .det{font-size:13px;color:var(--muted)}
+.kpi.bad .val{color:var(--bad)} .kpi.ok .val{color:var(--ok)} .kpi.warn .val{color:var(--warn)}
+.bar{height:6px;background:var(--surface-2);border-radius:99px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--ok)}
+/* Cards por ponto */
+.grupo-tit{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:16px 0 8px;font-weight:600}
+.grupo-tit:first-of-type{margin-top:0}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--ok);border-radius:var(--radius);padding:14px 16px;display:grid;gap:8px;align-content:start;text-align:left;font:inherit;color:inherit;cursor:pointer;transition:transform .12s,box-shadow .12s}
+.card:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.08)}
+.card:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.card.nc{border-left-color:var(--bad)}
+.card.sel{box-shadow:0 0 0 2px var(--brand)}
+.card .hd{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.card h3{margin:0;font-family:var(--font-display);font-size:21px;line-height:1.1}
+.card .meta{font-size:12.5px;color:var(--muted)}
+.card ul{margin:0;padding:0;list-style:none;display:grid;gap:4px}
+.card li{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;border-top:1px dashed var(--line);padding-top:4px}
+.card li b{font-weight:600}
+.card li span{font-family:var(--font-num);font-size:12.5px;color:var(--bad);white-space:nowrap}
+.card .okmsg{font-size:13.5px;color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.p-ok{background:var(--ok-bg);color:var(--ok)} .p-bad{background:var(--bad-bg);color:var(--bad)}
+.p-warn{background:var(--warn-bg);color:var(--warn)} .p-na{background:var(--na-bg);color:var(--na)}
+/* Gráficos */
+.charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));gap:14px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;min-width:0}
+.panel .ph{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;margin-bottom:8px}
+.panel h3{margin:0;font-size:15px;font-weight:700}
+.panel .lim{font-size:12.5px;color:var(--muted)}
+.ctl{font:inherit;font-size:14px;padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--fg);max-width:100%}
+.chart{width:100%;overflow-x:auto}
+.chart svg{display:block;width:100%;height:auto;min-width:420px}
+.chart text{fill:var(--muted);font-family:var(--font-body);font-size:11px}
+.chart .vl{fill:var(--fg);font-family:var(--font-num);font-size:11px;font-weight:600}
+.chart .grid{stroke:var(--line);stroke-width:1}
+.chart .limline{stroke:var(--bad);stroke-width:1.5;stroke-dasharray:6 4}
+.chart .limtxt{fill:var(--bad);font-weight:600}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--muted);margin-top:6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.note{font-size:13px;color:var(--muted);background:var(--surface-2);border-radius:8px;padding:8px 10px;margin-top:8px}
+/* Tabela */
+.filtros{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;align-items:center}
+.filtros input{min-width:0;flex:1 1 180px}
+.filtros .lim-btn{font:inherit;font-size:13px;padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);color:var(--fg);cursor:pointer}
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)}
+table{border-collapse:collapse;width:100%;min-width:880px;font-size:13.5px}
+th{position:sticky;top:0;background:var(--surface-2);text-align:left;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:9px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.r{font-family:var(--font-num);font-size:12.5px;white-space:nowrap}
+td small{color:var(--muted);display:block;font-size:12px}
+.count{font-size:13px;color:var(--muted)}
+/* Alertas */
+.alertas{display:grid;gap:8px}
+.al{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--na);border-radius:var(--radius);padding:10px 14px}
+.al.Alto{border-left-color:var(--bad)} .al.Médio{border-left-color:var(--warn)}
+.al .t{font-weight:700;font-size:14px}
+.al .w{font-size:12.5px;color:var(--muted)}
+.al .m{grid-column:1/-1;font-size:13.5px;max-width:95ch}
+footer.wrap{padding-block:0 30px;color:var(--muted);font-size:12.5px}
+/* Ficha do ponto */
+.det-bg[hidden]{display:none}
+.det-bg{position:fixed;inset:0;z-index:50;background:rgba(10,20,14,.45);display:flex;justify-content:flex-end}
+.ficha{width:min(900px,100%);height:100%;background:var(--bg);overflow-y:auto;box-shadow:-8px 0 30px rgba(0,0,0,.25);display:flex;flex-direction:column}
+.det-bar{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--brand);color:var(--brand-ink);padding-block:10px;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px));padding-top:max(10px,env(safe-area-inset-top,0px));font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+.det-bar .x{font:inherit;letter-spacing:.04em;text-transform:none;font-size:14px;background:rgba(255,255,255,.15);color:var(--brand-ink);border:1px solid rgba(255,255,255,.35);border-radius:8px;padding:6px 12px;cursor:pointer}
+.det-body{padding-block:18px 40px;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px));padding-bottom:max(40px,env(safe-area-inset-bottom,0px));display:grid;gap:22px;min-width:0}
+.d-hd{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+.d-hd h2{margin:2px 0;font-family:var(--font-display);font-size:34px;line-height:1.05}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.d-hd .meta{font-size:13px;color:var(--muted)}
+.d-sec{min-width:0}
+.d-sec h3{margin:0 0 8px;font-family:var(--font-display);font-size:19px;letter-spacing:.03em;text-transform:uppercase}
+.d-sec .sub{margin:-2px 0 10px;font-size:13.5px;color:var(--muted)}
+.d-sec .ph{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;align-items:center;margin-bottom:4px}
+.d-sec .ph h3{margin:0}
+.d-sec .lim{font-size:12.5px;color:var(--muted);margin-bottom:4px}
+.parecer{background:var(--ok-bg);border-left:5px solid var(--ok);border-radius:var(--radius);padding:12px 16px;display:grid;gap:8px}
+.parecer.nc{background:var(--bad-bg);border-left-color:var(--bad)}
+.parecer p{margin:0;font-size:14px;max-width:85ch}
+.parecer .leg{font-size:12.5px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips .pill{background:var(--surface)}
+.fields{margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.fields .f{background:var(--surface);padding:9px 12px;min-width:0}
+.fields dt{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.fields dd{margin:2px 0 0;font-weight:600;font-size:14px;overflow-wrap:anywhere}
+.fields dd.num{font-family:var(--font-num);font-weight:600;font-size:13px}
+table.mtz{min-width:640px}
+table.mtz th.c,table.mtz td.c{text-align:center}
+table.mtz th small{display:block;font-weight:400;letter-spacing:0;text-transform:none}
+table.mtz tr.clk{cursor:pointer}
+table.mtz tr.clk:hover td{background:var(--surface-2)}
+table.mtz tr.sel td{background:var(--brand-soft)}
+td.st-p-ok{color:var(--ok);font-weight:600} td.st-p-bad{color:var(--bad);font-weight:700;background:var(--bad-bg)} td.st-p-warn{color:var(--warn)}
+.d-ft{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+.card .ver{font-size:12.5px;color:var(--brand);font-weight:600}
+
+@media (max-width:560px){.brand h1{font-size:28px}.kpi .val{font-size:26px}}
+@media (prefers-reduced-motion:reduce){.card{transition:none}}
+body{margin:0}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <small>Goiás Verde · ETE Luziânia</small>
+      <h1>Controle de Laudos de Análise</h1>
+    </div>
+    <div class="camp">
+      <label for="selCamp">Campanha de coleta</label>
+      <select id="selCamp"></select>
+      <span id="atualizado"></span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section>
+    <div class="kpis" id="kpis"></div>
+  </section>
+
+  <section>
+    <h2>Pontos de coleta</h2>
+    <p class="sub">Situação de cada amostra conforme o parecer do laboratório. Clique num ponto para abrir a ficha completa: dados da coleta, parecer, matriz de resultados e histórico.</p>
+    <div id="cards"></div>
+  </section>
+
+  <section>
+    <h2>Parâmetros</h2>
+    <p class="sub">Compare um parâmetro entre os pontos e acompanhe a evolução ao longo das campanhas. A linha tracejada vermelha é o limite da legislação.</p>
+    <div class="charts">
+      <div class="panel">
+        <div class="ph"><h3>Comparativo entre pontos</h3><span style="display:flex;gap:8px;flex-wrap:wrap"><select class="ctl" id="selTipoG" aria-label="Tipo de amostra"></select><select class="ctl" id="selParam" aria-label="Parâmetro"></select></span></div>
+        <div class="lim" id="limTxt"></div>
+        <div class="chart" id="chartBar"></div>
+        <div class="legend"><span><i style="background:var(--ok)"></i>Conforme</span><span><i style="background:var(--bad)"></i>Não conforme</span><span><i style="background:var(--na)"></i>Sem limite</span><span><i style="background:repeating-linear-gradient(45deg,var(--na) 0 2px,transparent 2px 5px);border:1px solid var(--na)"></i>Abaixo do LQ (&lt;)</span></div>
+      </div>
+      <div class="panel">
+        <div class="ph"><h3>Histórico por ponto</h3><select class="ctl" id="selPonto" aria-label="Ponto de coleta"></select></div>
+        <div class="lim" id="histTxt"></div>
+        <div class="chart" id="chartLine"></div>
+        <div class="note" id="histNote" hidden></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Resultados analíticos</h2>
+    <p class="sub">Todos os resultados da campanha. Filtre por ponto, tipo de amostra, análise ou situação.</p>
+    <div class="filtros">
+      <select class="ctl" id="fPonto" aria-label="Filtrar ponto"></select>
+      <select class="ctl" id="fTipo" aria-label="Filtrar tipo"></select>
+      <select class="ctl" id="fStatus" aria-label="Filtrar situação">
+        <option value="">Todas as situações</option><option>Não conforme</option><option>Conforme</option><option>Sem limite</option>
+      </select>
+      <input class="ctl" id="fBusca" type="search" placeholder="Buscar análise…" aria-label="Buscar análise">
+      <button class="lim-btn" id="fLimpar" type="button">Limpar filtros</button>
+      <span class="count" id="fCount"></span>
+    </div>
+    <div class="tbl"><table>
+      <thead><tr><th>Ponto</th><th>Análise</th><th>Resultado</th><th>Limite</th><th>Situação</th><th>Verificação robô</th><th>LQ</th><th>Método</th><th>Data análise</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>Alertas de consistência</h2>
+    <p class="sub">Inconsistências encontradas pelo robô nos laudos do laboratório. Não alteram o parecer oficial, mas merecem conferência.</p>
+    <div class="alertas" id="alertas"></div>
+  </section>
+</main>
+<footer class="wrap" id="rodape"></footer>
+
+<div class="det-bg" id="detBg" hidden>
+  <aside class="ficha" role="dialog" aria-modal="true" aria-labelledby="detTit">
+    <div class="det-bar"><span>Ficha do ponto de coleta</span><button type="button" class="x" id="detFechar" aria-label="Fechar ficha">Fechar ✕</button></div>
+    <div class="det-body" id="detConteudo"></div>
+  </aside>
+</div>
+
+<script>
+(async function(){
+let D;
+try {
+  const resp = await fetch('laudos.json?v=' + Date.now(), {cache: 'no-store'});
+  if(!resp.ok) throw new Error('HTTP ' + resp.status);
+  D = await resp.json();
+} catch(e) {
+  document.querySelector('main').innerHTML = '<p class="note">Não foi possível carregar o arquivo laudos.json (' + String(e.message).replace(/[<>&]/g,'') + '). Verifique se ele foi enviado ao repositório.</p>';
+  return;
+}
+// recarrega os dados a cada 15 minutos (útil em TV), exceto com a ficha aberta
+setInterval(() => { if(document.getElementById('detBg').hidden) location.reload(); }, 15 * 60 * 1000);
+const $ = id => document.getElementById(id);
+const MES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pd = s => { if(!s) return null; const m = s.match(/(\d{2})\/(\d{2})\/(\d{4})(?: (\d{2}):(\d{2}))?/); return m ? new Date(+m[3], m[2]-1, +m[1], +(m[4]||0), +(m[5]||0)) : null; };
+const fmt = (v, d) => v == null ? '–' : v.toLocaleString('pt-BR', {maximumFractionDigits: d ?? 3});
+const pillCls = s => s === 'Conforme' ? 'p-ok' : s === 'Não conforme' ? 'p-bad' : s === 'Indeterminado' ? 'p-warn' : 'p-na';
+const corStatus = s => s === 'Conforme' ? 'var(--ok)' : s === 'Não conforme' ? 'var(--bad)' : 'var(--na)';
+
+// ---- índices
+const amPorChave = {}; D.amostras.forEach(a => { a._dt = pd(a.data_coleta); a._camp = a._dt ? a._dt.getFullYear()+'-'+String(a._dt.getMonth()+1).padStart(2,'0') : 'sem-data'; amPorChave[a.chave_validacao] = a; });
+D.resultados.forEach(r => { r._am = amPorChave[r.chave_validacao]; });
+const nomePonto = a => a.ponto_coleta;
+const rotuloAm = a => a.ponto_coleta + (a.descricao && a.descricao.toLowerCase() !== a.ponto_coleta.toLowerCase() ? ' · ' + a.descricao : '');
+
+const camps = [...new Set(D.amostras.map(a => a._camp))].sort().reverse();
+const state = {camp: camps[0], chave: '', tipo: '', status: '', busca: '', param: '', ponto: '', tipoG: ''};
+
+$('selCamp').innerHTML = camps.map(c => { const [y,m] = c.split('-'); return `<option value="${c}">${m ? MES[+m-1]+' de '+y : c}</option>`; }).join('');
+$('atualizado').innerHTML = 'Atualizado em <span class="num">' + esc((D.atualizado_em||'').replace(/^(\d{4})-(\d{2})-(\d{2})/, '$3/$2/$1').slice(0,16)) + '</span>';
+
+const amCamp = () => D.amostras.filter(a => a._camp === state.camp).sort((x,y) => (x.tipo_amostra||'').localeCompare(y.tipo_amostra||'') || x.ponto_coleta.localeCompare(y.ponto_coleta));
+const resCamp = () => D.resultados.filter(r => r._am && r._am._camp === state.camp);
+
+// ---- indicadores
+function renderKpis(){
+  const am = amCamp(), rs = resCamp();
+  const comLim = rs.filter(r => r.status_laudo === 'Conforme' || r.status_laudo === 'Não conforme');
+  const nc = rs.filter(r => r.status_laudo === 'Não conforme');
+  const pct = comLim.length ? Math.round(100 * (comLim.length - nc.length) / comLim.length) : 0;
+  const amNc = am.filter(a => a.parecer_laboratorio === 'Não conforme');
+  const chs = new Set(am.map(a => a.chave_validacao));
+  const al = D.alertas.filter(a => chs.has(a.chave_validacao));
+  const alAlto = al.filter(a => a.nivel === 'Alto').length;
+  $('kpis').innerHTML = `
+    <div class="kpi"><span class="lbl">Amostras</span><span class="val">${am.length}</span><span class="det">${rs.length} resultados analíticos</span></div>
+    <div class="kpi ${pct===100?'ok':''}"><span class="lbl">Conformidade</span><span class="val">${pct}%</span><span class="det">${comLim.length - nc.length} de ${comLim.length} parâmetros com limite</span><div class="bar"><i style="width:${pct}%"></i></div></div>
+    <div class="kpi ${nc.length?'bad':'ok'}"><span class="lbl">Parâmetros fora do limite</span><span class="val">${nc.length}</span><span class="det">em ${amNc.length} ${amNc.length===1?'amostra':'amostras'}</span></div>
+    <div class="kpi ${amNc.length?'bad':'ok'}"><span class="lbl">Pontos reprovados</span><span class="val">${amNc.length}<span style="font-size:16px;color:var(--muted)"> / ${am.length}</span></span><span class="det">${esc(amNc.map(nomePonto).join(', ') || 'nenhum')}</span></div>
+    <div class="kpi ${al.length?'warn':''}"><span class="lbl">Alertas de consistência</span><span class="val">${al.length}</span><span class="det">${alAlto} de nível alto</span></div>`;
+}
+
+// ---- cards
+function renderCards(){
+  const am = amCamp(); const grupos = {};
+  am.forEach(a => (grupos[a.tipo_amostra || 'Outros'] ||= []).push(a));
+  $('cards').innerHTML = Object.entries(grupos).map(([tipo, lista]) => `
+    <div class="grupo-tit">${esc(tipo)} · ${lista.length} ${lista.length===1?'ponto':'pontos'}</div>
+    <div class="cards">${lista.map(a => {
+      const rs = D.resultados.filter(r => r.chave_validacao === a.chave_validacao);
+      const nc = rs.filter(r => r.status_laudo === 'Não conforme');
+      const ncls = a.parecer_laboratorio === 'Não conforme';
+      const hora = a._dt ? a._dt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}) : '';
+      return `<button type="button" class="card ${ncls?'nc':''} ${state.chave===a.chave_validacao?'sel':''}" data-ch="${a.chave_validacao}">
+        <div class="hd"><div><h3>${esc(a.ponto_coleta)}</h3><div class="meta">${esc(a.descricao)} · coleta ${esc(a.data_coleta?.slice(0,5))} ${hora}</div></div>
+        <span class="pill ${ncls?'p-bad':'p-ok'}">${ncls?'Não conforme':'Conforme'}</span></div>
+        ${nc.length ? `<ul>${nc.map(r => `<li><b>${esc(r.analise)}</b><span>${esc(r.resultado_original)}</span></li>`).join('')}</ul>`
+                    : `<div class="okmsg">${rs.length} ${rs.length===1?'análise':'análises'} dentro do limite ou sem limite aplicável</div>`}
+        <div class="hd"><span class="meta num">Amostra ${esc(a.numero_amostra)}</span><span class="ver">Abrir ficha →</span></div>
+      </button>`; }).join('')}</div>`).join('');
+  document.querySelectorAll('.card').forEach(b => b.addEventListener('click', () => abrirDetalhe(b.dataset.ch, b)));
+}
+
+// ---- gráfico de barras (comparativo)
+function opcoesParam(){
+  const tipos = [...new Set(amCamp().map(a => a.tipo_amostra))];
+  if(!tipos.includes(state.tipoG)){ const nc = resCamp().find(r => r.status_laudo === 'Não conforme'); state.tipoG = nc ? nc._am.tipo_amostra : tipos[0]; }
+  $('selTipoG').innerHTML = tipos.map(t => `<option ${t===state.tipoG?'selected':''}>${esc(t)}</option>`).join('');
+  const rs = resCamp().filter(r => r.valor != null && r._am.tipo_amostra === state.tipoG);
+  const cont = {}; rs.forEach(r => cont[r.analise] = (cont[r.analise]||0) + 1);
+  const lista = Object.keys(cont).sort((a,b) => cont[b]-cont[a] || a.localeCompare(b));
+  if(!lista.includes(state.param)){
+    const nc = rs.find(r => r.status_laudo === 'Não conforme');
+    state.param = nc ? nc.analise : lista[0] || '';
+  }
+  $('selParam').innerHTML = lista.map(p => `<option ${p===state.param?'selected':''}>${esc(p)}</option>`).join('');
+}
+function limiteDe(rs){
+  const r = rs.find(x => x.tipo_limite && x.tipo_limite !== 'sem_limite' && x.tipo_limite !== 'nao_verificavel');
+  return r ? {tipo:r.tipo_limite, min:r.limite_min, max:r.limite_max, txt:r.limite, leg:r.legislacao} : null;
+}
+function renderBarras(){
+  const rs = resCamp().filter(r => r.analise === state.param && r.valor != null && r._am.tipo_amostra === state.tipoG)
+    .sort((a,b) => a._am.ponto_coleta.localeCompare(b._am.ponto_coleta));
+  const lim = limiteDe(rs);
+  const un = rs[0]?.unidade || '';
+  $('limTxt').textContent = lim ? `Limite (${lim.leg}): ${lim.txt}` : 'Sem limite definido na legislação aplicada';
+  if(!rs.length){ $('chartBar').innerHTML = '<p class="note">Sem resultados numéricos para este parâmetro.</p>'; return; }
+  const W = 640, H = 300, L = 58, R = 50, T = 30, B = 60;
+  const linhasLim = lim ? [lim.min, lim.max].filter(v => v != null) : [];
+  const vmax = Math.max(...rs.map(r => r.valor), ...linhasLim) * 1.15 || 1;
+  const y = v => T + (H - T - B) * (1 - v / vmax);
+  const bw = Math.min(64, (W - L - R) / rs.length * 0.62), step = (W - L - R) / rs.length;
+  const ticks = niceTicks(vmax);
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Comparativo de ${esc(state.param)} entre pontos">
+    <defs>${[['ok','--ok'],['bad','--bad'],['na','--na']].map(([k,c]) => `<pattern id="h-${k}" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--surface)"/><line x1="0" y1="0" x2="0" y2="6" stroke="var(${c})" stroke-width="3"/></pattern>`).join('')}</defs>`;
+  ticks.forEach(t => s += `<line class="grid" x1="${L}" x2="${W-R}" y1="${y(t)}" y2="${y(t)}"/><text x="${L-8}" y="${y(t)+4}" text-anchor="end" class="num">${fmt(t)}</text>`);
+  s += `<text x="${L-8}" y="${T-12}" text-anchor="end">${esc(un)}</text>`;
+  rs.forEach((r, i) => {
+    const cx = L + step * i + step / 2, yv = y(r.valor), h = Math.max(2, (H - B) - yv);
+    const abaixo = r.sinal && r.sinal.startsWith('<');
+    const k = r.status_laudo === 'Conforme' ? 'ok' : r.status_laudo === 'Não conforme' ? 'bad' : 'na';
+    const fill = abaixo ? `url(#h-${k})` : corStatus(r.status_laudo);
+    s += `<rect x="${cx-bw/2}" y="${(H-B)-h}" width="${bw}" height="${h}" rx="3" fill="${fill}" stroke="${abaixo?corStatus(r.status_laudo):'none'}"><title>${esc(r._am.ponto_coleta)}: ${esc(r.resultado_original)}</title></rect>`;
+    s += `<text x="${cx}" y="${(H-B)-h-6}" text-anchor="middle" class="vl">${esc((r.sinal||'') + fmt(r.valor))}</text>`;
+    const nm = r._am.ponto_coleta.split(' '); const l1 = nm.length > 1 && r._am.ponto_coleta.length > 9 ? nm.slice(0, Math.ceil(nm.length/2)).join(' ') : r._am.ponto_coleta; const l2 = l1 === r._am.ponto_coleta ? '' : r._am.ponto_coleta.slice(l1.length+1);
+    s += `<text x="${cx}" y="${H-B+16}" text-anchor="middle" style="fill:var(--fg);font-weight:600">${esc(l1)}</text>`;
+    if(l2) s += `<text x="${cx}" y="${H-B+29}" text-anchor="middle" style="fill:var(--fg);font-weight:600">${esc(l2)}</text>`;
+    s += `<text x="${cx}" y="${H-B+(l2?43:30)}" text-anchor="middle">${esc(r._am.numero_amostra.split('-')[0])}</text>`;
+  });
+  if(lim){
+    if(lim.max != null){ s += `<line class="limline" x1="${L}" x2="${W-R}" y1="${y(lim.max)}" y2="${y(lim.max)}"/><text class="limtxt" x="${W-R+4}" y="${y(lim.max)+4}">${lim.tipo==='faixa'?'máx':'lim'} ${fmt(lim.max)}</text>`; }
+    if(lim.min != null){ s += `<line class="limline" x1="${L}" x2="${W-R}" y1="${y(lim.min)}" y2="${y(lim.min)}"/><text class="limtxt" x="${W-R+4}" y="${y(lim.min)+4}">mín ${fmt(lim.min)}</text>`; }
+  }
+  s += `<line x1="${L}" x2="${W-R}" y1="${H-B}" y2="${H-B}" stroke="var(--muted)"/></svg>`;
+  $('chartBar').innerHTML = s;
+}
+function niceTicks(max){
+  const raw = max / 4, mag = Math.pow(10, Math.floor(Math.log10(raw))), n = raw / mag;
+  const st = (n < 1.5 ? 1 : n < 3 ? 2 : n < 7 ? 5 : 10) * mag;
+  const out = []; for(let v = 0; v <= max + 1e-9; v += st) out.push(+v.toFixed(10)); return out;
+}
+
+// ---- histórico (linha)
+function opcoesPonto(){
+  const pontos = [...new Set(D.resultados.filter(r => r.analise === state.param && r.valor != null).map(r => r._am.ponto_coleta))].sort();
+  if(!pontos.includes(state.ponto)) state.ponto = pontos[0] || '';
+  $('selPonto').innerHTML = pontos.map(p => `<option ${p===state.ponto?'selected':''}>${esc(p)}</option>`).join('');
+}
+function renderLinha(){
+  const rs = D.resultados.filter(r => r.analise === state.param && r.valor != null && r._am.ponto_coleta === state.ponto && r._am._dt)
+    .sort((a,b) => a._am._dt - b._am._dt);
+  const lim = limiteDe(rs);
+  $('histTxt').textContent = `${state.param} · ${state.ponto}` + (lim ? ` · limite ${lim.txt}` : '');
+  const nCamp = new Set(rs.map(r => r._am._camp)).size;
+  $('histNote').hidden = nCamp > 1;
+  $('histNote').textContent = `Há ${nCamp} ${nCamp===1?'campanha registrada':'campanhas registradas'} para este ponto. A linha de tendência aparece a partir da 2ª coleta.`;
+  $('chartLine').innerHTML = svgLinha(rs, `Histórico de ${state.param} em ${state.ponto}`);
+}
+function svgLinha(rs, rotulo){
+  const lim = limiteDe(rs);
+  const W = 640, H = 280, L = 58, R = 50, T = 26, B = 46;
+  const linhasLim = lim ? [lim.min, lim.max].filter(v => v != null) : [];
+  const vmax = Math.max(...rs.map(r => r.valor), ...linhasLim, 0) * 1.15 || 1;
+  const y = v => T + (H - T - B) * (1 - v / vmax);
+  const t0 = rs.length ? +rs[0]._am._dt : 0, t1 = rs.length ? +rs[rs.length-1]._am._dt : 1;
+  const mesmoDia = new Set(rs.map(r => (r._am.data_coleta||'').slice(0,10))).size < 2;
+  const x = t => mesmoDia ? (L + W - R) / 2 : L + 30 + (W - L - R - 60) * (t - t0) / (t1 - t0);
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(rotulo)}">`;
+  niceTicks(vmax).forEach(t => s += `<line class="grid" x1="${L}" x2="${W-R}" y1="${y(t)}" y2="${y(t)}"/><text x="${L-8}" y="${y(t)+4}" text-anchor="end" class="num">${fmt(t)}</text>`);
+  s += `<text x="${L-8}" y="${T-12}" text-anchor="end">${esc(rs[0]?.unidade||'')}</text>`;
+  if(lim){
+    if(lim.max != null) s += `<line class="limline" x1="${L}" x2="${W-R}" y1="${y(lim.max)}" y2="${y(lim.max)}"/><text class="limtxt" x="${W-R+4}" y="${y(lim.max)+4}">${lim.tipo==='faixa'?'máx':'lim'} ${fmt(lim.max)}</text>`;
+    if(lim.min != null) s += `<line class="limline" x1="${L}" x2="${W-R}" y1="${y(lim.min)}" y2="${y(lim.min)}"/><text class="limtxt" x="${W-R+4}" y="${y(lim.min)+4}">mín ${fmt(lim.min)}</text>`;
+  }
+  if(!mesmoDia){
+    const pts = rs.map(r => `${x(+r._am._dt)},${y(r.valor)}`).join(' ');
+    s += `<polygon points="${x(t0)},${H-B} ${pts} ${x(t1)},${H-B}" fill="var(--brand)" opacity=".10"/><polyline points="${pts}" fill="none" stroke="var(--brand)" stroke-width="2.5"/>`;
+  }
+  rs.forEach((r, i) => {
+    const off = (mesmoDia && rs.length > 1) ? (i - (rs.length-1)/2) * 90 : 0;
+    const cx = x(+r._am._dt) + off, cy = y(r.valor);
+    s += `<circle cx="${cx}" cy="${cy}" r="5.5" fill="${corStatus(r.status_laudo)}" stroke="var(--surface)" stroke-width="2"><title>${esc(r._am.data_coleta)} · ${esc(r._am.numero_amostra)}: ${esc(r.resultado_original)}</title></circle>`;
+    s += `<text x="${cx}" y="${cy-11}" text-anchor="middle" class="vl">${esc((r.sinal||'') + fmt(r.valor))}</text>`;
+    s += `<text x="${cx}" y="${H-B+18}" text-anchor="middle">${esc(r._am.data_coleta.slice(0,10))}</text>`;
+    if(mesmoDia && rs.length > 1) s += `<text x="${cx}" y="${H-B+32}" text-anchor="middle">${esc(r._am.data_coleta.slice(11,16))} · ${esc(r._am.numero_amostra.split('-')[0])}</text>`;
+  });
+  s += `<line x1="${L}" x2="${W-R}" y1="${H-B}" y2="${H-B}" stroke="var(--muted)"/></svg>`;
+  return s;
+}
+
+// ---- tabela
+function opcoesFiltro(){
+  const am = amCamp();
+  $('fPonto').innerHTML = '<option value="">Todos os pontos</option>' + am.map(a => `<option value="${a.chave_validacao}">${esc(rotuloAm(a))}</option>`).join('');
+  $('fPonto').value = state.chave;
+  const tipos = [...new Set(am.map(a => a.tipo_amostra))];
+  $('fTipo').innerHTML = '<option value="">Todos os tipos</option>' + tipos.map(t => `<option>${esc(t)}</option>`).join('');
+  $('fTipo').value = state.tipo;
+}
+function renderTabela(){
+  const b = state.busca.trim().toLowerCase();
+  const rs = resCamp().filter(r => (!state.chave || r.chave_validacao === state.chave)
+    && (!state.tipo || r._am.tipo_amostra === state.tipo)
+    && (!state.status || r.status_laudo === state.status)
+    && (!b || r.analise.toLowerCase().includes(b)))
+    .sort((x,y) => (x.status_laudo==='Não conforme'?0:1) - (y.status_laudo==='Não conforme'?0:1) || x._am.ponto_coleta.localeCompare(y._am.ponto_coleta) || x.analise.localeCompare(y.analise));
+  $('fCount').textContent = `${rs.length} ${rs.length===1?'resultado':'resultados'}`;
+  $('tbody').innerHTML = rs.map(r => `<tr>
+    <td><b>${esc(r._am.ponto_coleta)}</b><small>${esc(r._am.tipo_amostra)} · ${esc(r._am.numero_amostra)}</small></td>
+    <td>${esc(r.analise)}<small>${esc(r.grupo)}${r.acreditado==='Não'?' · não acreditado':''}</small></td>
+    <td class="r">${esc(r.resultado_original)}</td>
+    <td>${esc(r.limite === '-' ? '—' : r.limite)}</td>
+    <td><span class="pill ${pillCls(r.status_laudo)}">${esc(r.status_laudo)}</span></td>
+    <td><span class="pill ${pillCls(r.verificacao_robo)}">${esc(r.verificacao_robo)}</span></td>
+    <td class="r">${fmt(r.lq)}</td>
+    <td><small style="color:inherit">${esc(r.metodo)}</small></td>
+    <td class="r">${esc((r.data_analise||'').slice(0,10))}</td></tr>`).join('') || '<tr><td colspan="9" style="color:var(--muted)">Nenhum resultado com esses filtros.</td></tr>';
+}
+
+// ---- alertas
+function renderAlertas(){
+  const chs = new Set(amCamp().map(a => a.chave_validacao)); const ord = {Alto:0, 'Médio':1, Baixo:2};
+  const al = D.alertas.filter(a => chs.has(a.chave_validacao)).sort((a,b) => ord[a.nivel]-ord[b.nivel] || a.tipo.localeCompare(b.tipo));
+  $('alertas').innerHTML = al.map(a => `<div class="al ${esc(a.nivel)}">
+    <span class="t">${esc(a.tipo)}</span>
+    <span class="w">${esc(a.ponto_coleta)} · ${esc(a.analise||'')} · amostra <span class="num">${esc(a.numero_amostra)}</span> · nível ${esc(a.nivel.toLowerCase())}</span>
+    <span class="m">${esc(a.mensagem)}</span></div>`).join('') || '<p class="note">Nenhum alerta nesta campanha.</p>';
+}
+
+
+// ---- ficha do ponto (detalhe)
+const det = {chave:'', param:'', origem:null};
+const grupoDoPonto = a => D.amostras.filter(x => x.ponto_coleta === a.ponto_coleta && x.tipo_amostra === a.tipo_amostra)
+  .sort((p,q) => (q._dt||0) - (p._dt||0));
+function abrirDetalhe(chave, origem){
+  det.chave = chave; det.origem = origem || null; det.param = '';
+  renderDetalhe();
+  $('detBg').hidden = false; document.documentElement.style.overflow = 'hidden';
+  $('detFechar').focus();
+}
+function fecharDetalhe(){
+  $('detBg').hidden = true; document.documentElement.style.overflow = '';
+  if(det.origem) det.origem.focus();
+}
+function campo(rot, val, cls){ return `<div class="f"><dt>${esc(rot)}</dt><dd class="${cls||''}">${esc(val == null || val === '' ? '—' : val)}</dd></div>`; }
+function renderDetalhe(){
+  const a = amPorChave[det.chave]; if(!a) return;
+  const grupo = grupoDoPonto(a);
+  const chs = grupo.map(x => x.chave_validacao);
+  const rsAm = D.resultados.filter(r => r.chave_validacao === a.chave_validacao);
+  const ncls = a.parecer_laboratorio === 'Não conforme';
+  // matriz: análises x coletas do ponto
+  const analises = [...new Set(D.resultados.filter(r => chs.includes(r.chave_validacao)).map(r => r.analise))]
+    .sort((p,q) => { const rp = rsAm.find(r=>r.analise===p), rq = rsAm.find(r=>r.analise===q);
+      return ((rp?.status_laudo==='Não conforme')?0:1) - ((rq?.status_laudo==='Não conforme')?0:1) || p.localeCompare(q); });
+  const idx = {}; D.resultados.forEach(r => { if(chs.includes(r.chave_validacao)) idx[r.chave_validacao+'|'+r.analise] = r; });
+  const numericas = analises.filter(an => chs.some(c => idx[c+'|'+an]?.valor != null));
+  if(!numericas.includes(det.param)) det.param = (rsAm.find(r => r.status_laudo==='Não conforme' && r.valor!=null)?.analise) || numericas[0] || '';
+  const reprov = a.reprovados_laboratorio ? a.reprovados_laboratorio.split(/,\s*(?![^()]*\))/) : [];
+  const alertasP = D.alertas.filter(x => x.chave_validacao === a.chave_validacao);
+  const histRs = D.resultados.filter(r => chs.includes(r.chave_validacao) && r.analise === det.param && r.valor != null).sort((p,q) => p._am._dt - q._am._dt);
+  const nColetas = new Set(histRs.map(r => r._am.data_coleta)).size;
+
+  $('detConteudo').innerHTML = `
+    <div class="d-hd">
+      <div><div class="eyebrow">${esc(a.tipo_amostra)} · Amostra <span class="num">${esc(a.numero_amostra)}</span></div>
+        <h2 id="detTit">${esc(a.ponto_coleta)}</h2>
+        <div class="meta">${esc(a.descricao)} · ${esc(a.relatorios)}</div></div>
+      <span class="pill ${ncls?'p-bad':'p-ok'}">${ncls?'Não conforme':'Conforme'}</span>
+    </div>
+
+    <div class="d-sec"><h3>Parecer do laboratório</h3>
+      <div class="parecer ${ncls?'nc':''}">
+        <p>${esc(a.interpretacao || '—')}</p>
+        ${reprov.length ? `<div class="chips">${reprov.map(x => `<span class="pill p-bad">${esc(x.trim())}</span>`).join('')}</div>` : ''}
+        <p class="leg">${esc(a.legislacao_desc || '')}</p>
+      </div>
+    </div>
+
+    <div class="d-sec"><h3>Dados da última coleta</h3>
+      <dl class="fields">
+        ${campo('Data de coleta', a.data_coleta, 'num')}${campo('Recebimento no laboratório', a.data_recebimento, 'num')}
+        ${campo('Publicação do laudo', a.data_publicacao, 'num')}${campo('Ponto (como no laudo)', a.ponto_coleta_bruto)}
+        ${campo('Chuva na coleta', a.chuva_coleta)}${campo('Chuvas nas 24h', a.chuva_24h)}
+        ${campo('Temp. amostra no recebimento (°C)', a.temp_amostra_recebimento, 'num')}${campo('Temp. amostra no local (°C)', a.temp_amostra_local, 'num')}
+        ${campo('Temp. ambiente no local (°C)', a.temp_ambiente_local, 'num')}${campo('Condições do frasco', a.condicoes_frasco)}
+        ${campo('Coletor', a.coletor)}${campo('Plano de amostragem', a.plano_amostragem)}
+        ${campo('Proposta comercial', a.proposta, 'num')}${campo('Coleta de amostras', a.coleta_amostras, 'num')}
+        ${campo('Contato no laudo', a.contato)}${campo('Nº de análises', rsAm.length, 'num')}
+      </dl>
+    </div>
+
+    <div class="d-sec"><h3>Matriz de resultados</h3>
+      <p class="sub">${analises.length} análises em ${grupo.length} ${grupo.length===1?'coleta':'coletas'} deste ponto. Clique numa linha para ver o histórico do parâmetro.</p>
+      <div class="tbl"><table class="mtz">
+        <thead><tr><th>Análise</th><th>Limite</th>${grupo.map(g => `<th class="c">${esc((g.data_coleta||'').slice(0,10))}<small>${esc((g.data_coleta||'').slice(11,16))} · ${esc(g.numero_amostra.split('-')[0])}</small></th>`).join('')}<th>LQ</th><th>Método</th></tr></thead>
+        <tbody>${analises.map(an => { const ref = chs.map(c => idx[c+'|'+an]).find(Boolean);
+          return `<tr class="${an===det.param?'sel':''} ${numericas.includes(an)?'clk':''}" data-an="${esc(an)}" ${numericas.includes(an)?'tabindex="0"':''}>
+            <td><b>${esc(an)}</b><small>${esc(ref.grupo)}${ref.acreditado==='Não'?' · não acreditado':''}</small></td>
+            <td>${esc(ref.limite==='-'?'—':ref.limite)}</td>
+            ${chs.map(c => { const r = idx[c+'|'+an]; return r ? `<td class="r c st-${pillCls(r.status_laudo)}">${esc(r.resultado_original)}</td>` : '<td class="c" style="color:var(--muted)">—</td>'; }).join('')}
+            <td class="r">${fmt(ref.lq)}</td><td><small style="color:inherit">${esc(ref.metodo)}</small></td></tr>`; }).join('')}</tbody>
+      </table></div>
+    </div>
+
+    <div class="d-sec"><div class="ph"><h3>Histórico individual</h3>
+      <select class="ctl" id="detParam" aria-label="Parâmetro do histórico">${numericas.map(p => `<option ${p===det.param?'selected':''}>${esc(p)}</option>`).join('')}</select></div>
+      <div class="lim">${esc(det.param)}${limiteDe(histRs) ? ' · limite ' + esc(limiteDe(histRs).txt) : ' · sem limite na legislação'}</div>
+      <div class="chart">${histRs.length ? svgLinha(histRs, 'Histórico de ' + det.param + ' em ' + a.ponto_coleta) : '<p class="note">Sem resultado numérico.</p>'}</div>
+      ${nColetas < 2 ? `<div class="note">${grupo.length > 1 ? 'As coletas deste ponto são do mesmo dia; ' : ''}a linha de tendência aparece quando houver coletas em datas diferentes.</div>` : ''}
+    </div>
+
+    ${alertasP.length ? `<div class="d-sec"><h3>Alertas desta amostra</h3><div class="alertas">${alertasP.map(x => `<div class="al ${esc(x.nivel)}"><span class="t">${esc(x.tipo)}</span><span class="w">${esc(x.analise||'')} · nível ${esc(x.nivel.toLowerCase())}</span><span class="m">${esc(x.mensagem)}</span></div>`).join('')}</div></div>` : ''}
+
+    <div class="d-sec d-ft">Arquivo: <span class="num">${esc(a.arquivo||'—')}</span><br>Chave de validação: <span class="num">${esc(a.chave_validacao)}</span></div>`;
+
+  $('detParam').addEventListener('change', e => { det.param = e.target.value; renderDetalhe(); });
+  document.querySelectorAll('.mtz tr.clk').forEach(tr => {
+    const go = () => { det.param = tr.dataset.an; renderDetalhe(); $('detParam').scrollIntoView({block:'center'}); };
+    tr.addEventListener('click', go); tr.addEventListener('keydown', e => { if(e.key==='Enter'){ e.preventDefault(); go(); } });
+  });
+}
+$('detFechar').addEventListener('click', fecharDetalhe);
+$('detBg').addEventListener('click', e => { if(e.target === $('detBg')) fecharDetalhe(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape' && !$('detBg').hidden) fecharDetalhe(); });
+
+function renderTudo(){ opcoesFiltro(); renderKpis(); renderCards(); opcoesParam(); renderBarras(); opcoesPonto(); renderLinha(); renderTabela(); renderAlertas();
+  const am = amCamp(); $('rodape').innerHTML = `Fonte: laudos Aqualit (${esc([...new Set(am.map(a=>a.proposta))].join(', '))}) processados pelo Robô de Laudos.`; }
+
+$('selCamp').addEventListener('change', e => { state.camp = e.target.value; state.chave = ''; renderTudo(); });
+$('selTipoG').addEventListener('change', e => { state.tipoG = e.target.value; state.param = ''; opcoesParam(); renderBarras(); opcoesPonto(); renderLinha(); });
+$('selParam').addEventListener('change', e => { state.param = e.target.value; renderBarras(); opcoesPonto(); renderLinha(); });
+$('selPonto').addEventListener('change', e => { state.ponto = e.target.value; renderLinha(); });
+$('fPonto').addEventListener('change', e => { state.chave = e.target.value; renderCards(); renderTabela(); });
+$('fTipo').addEventListener('change', e => { state.tipo = e.target.value; renderTabela(); });
+$('fStatus').addEventListener('change', e => { state.status = e.target.value; renderTabela(); });
+$('fBusca').addEventListener('input', e => { state.busca = e.target.value; renderTabela(); });
+$('fLimpar').addEventListener('click', () => { Object.assign(state, {chave:'', tipo:'', status:'', busca:''}); $('fStatus').value=''; $('fBusca').value=''; opcoesFiltro(); renderCards(); renderTabela(); });
+renderTudo();
+})();
+</script>
+</body>
+</html>
